@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="systemHandler" class="com.arcturus.appserver.system.SystemHandler"
+          destroy-method="shutdown"/>
+    <bean id="sessionHandler" class="com.arcturus.appserver.system.SessionHandler"/>
+    <bean id="remoteMessageReceiver" class="com.arcturus.appserver.cluster.RemoteMessageReceiver"/>
+
+    <bean id="couchbaseConnection"
+          class="com.arcturus.appserver.database.couchbase.CouchbaseConnection" lazy-init="true"/>
+    <bean id="configWrapper" class="com.arcturus.appserver.inject.spring.ConfigWrapper"/>
+    <bean id="dbFactory"
+          class="com.arcturus.appserver.database.keyvaluestore.KeyValueStoreDatabaseFactory"
+          lazy-init="true">
+        <constructor-arg name="couchbaseConnection"
+                         value="#{ configWrapper.doCouchbaseConnection() ? couchbaseConnection : null }"/>
+    </bean>
+    <bean id="db" factory-bean="dbFactory" factory-method="create" lazy-init="true"/>
+
+    <bean id="loggerFactoryFactory" class="com.arcturus.appserver.log.LoggerFactoryFactory"
+          lazy-init="true"/>
+    <bean id="rootInjector" class="com.arcturus.appserver.inject.spring.SpringInjector"
+          lazy-init="true"/>
+    <bean id="loggerFactory" factory-bean="loggerFactoryFactory" factory-method="create"
+          lazy-init="true"/>
+    <bean id="jettyWebserver" class="com.arcturus.appserver.net.jetty.JettyWebserver"
+          lazy-init="true"/>
+    <bean id="jettyHttpServlet" class="com.arcturus.appserver.net.jetty.JettyHttpServlet"
+          lazy-init="true"/>
+    <bean id="jettyWebSocketServlet" class="com.arcturus.appserver.net.jetty.JettyWebSocketServlet"
+          lazy-init="true"/>
+    <bean id="jsTools" class="com.arcturus.appserver.system.app.type.js.JsTools" lazy-init="true"/>
+    <bean id="appLoader" class="com.arcturus.appserver.system.AppLoader" lazy-init="true"/>
+    <bean id="appManager" class="com.arcturus.appserver.system.AppManager" lazy-init="true"/>
+    <bean id="appScriptStore" class="com.arcturus.appserver.system.maintainer.AppScriptStore"
+          lazy-init="true"/>
+    <bean id="requestsContainer" class="com.arcturus.appserver.system.RequestsContainer"
+          lazy-init="true"/>
+    <bean id="userSessionContainer" class="com.arcturus.appserver.system.UserSessionContainer"
+          lazy-init="true"/>
+    <bean id="userNodeContainer" class="com.arcturus.appserver.system.UserNodeContainer"
+          lazy-init="true"/>
+    <bean id="requestNodeContainer" class="com.arcturus.appserver.system.RequestNodeContainer"
+          lazy-init="true"/>
+    <bean id="userSender" class="com.arcturus.appserver.system.ArcturusUserSender"
+          lazy-init="true"/>
+    <bean id="responseSender" class="com.arcturus.appserver.system.ArcturusResponseSender"
+          lazy-init="true"/>
+    <bean id="sharedHazelcastInstance"
+          class="com.arcturus.appserver.cluster.hazelcast.SharedHazelcastInstance"
+          lazy-init="true"/>
+    <bean id="accountManager" class="com.arcturus.appserver.system.account.AccountManager"
+          lazy-init="true"/>
+    <bean id="maintenanceHandler"
+          class="com.arcturus.appserver.system.maintainer.MaintenanceHandler" lazy-init="true"/>
+    <bean id="registrationManager"
+          class="com.arcturus.appserver.system.account.registration.RegistrationManager"
+          lazy-init="true"/>
+    <bean id="loginManager" class="com.arcturus.appserver.system.account.login.LoginManager"
+          lazy-init="true"/>
+    <bean id="passwordResetManager"
+          class="com.arcturus.appserver.system.account.password.PasswordResetManager"
+          lazy-init="true"/>
+    <bean id="jsonStringSerializer"
+          class="com.arcturus.appserver.serialization.gson.GsonJsonStringSerializer"
+          lazy-init="true"/>
+    <bean id="nanoProcessSystem"
+          class="com.arcturus.appserver.concurrent.nanoprocess.NanoProcessSystem" lazy-init="true"/>
+    <bean id="cluster" class="com.arcturus.appserver.cluster.hazelcast.HazelcastCluster"
+          lazy-init="true"/>
+    <bean id="remoteMessageHandler" class="com.arcturus.appserver.system.RemoteMessageHandler"
+          lazy-init="true"/>
+    <bean id="entityCollectionsFactory"
+          class="com.arcturus.appserver.system.app.type.java.ArcturusEntityCollectionsFactory"
+          lazy-init="true"/>
+    <bean id="ddosManager" class="com.arcturus.appserver.net.DdosManager" lazy-init="true"/>
+    <bean id="stringConcurrentMapContainer"
+          class="com.arcturus.appserver.database.keyvaluestore.inmemory.StringConcurrentMapContainer"
+          lazy-init="true"/>
+    <bean id="files" class="com.arcturus.appserver.file.Files" lazy-init="true"/>
+    <bean id="idGenerator" class="com.arcturus.appserver.system.IdGenerator" lazy-init="true"/>
+    <bean id="sessionIdGenerator" class="com.arcturus.appserver.system.SessionIdGenerator"
+          lazy-init="true"/>
+    <bean id="jsonFactory" class="com.arcturus.appserver.json.gson.GsonJsonFactory"
+          lazy-init="true"/>
+    <bean id="appScriptEntityProvider"
+          class="com.arcturus.appserver.system.maintainer.AppScriptEntityProvider"
+          lazy-init="true"/>
+    <bean id="sourceNodeIdProvider" class="com.arcturus.appserver.system.SourceNodeIdProvider"
+          lazy-init="true"/>
+    <bean id="defaultUseCases"
+          class="com.arcturus.appserver.system.app.service.DefaultUseCases" lazy-init="true"/>
+    <bean id="scriptValidator"
+          class="com.arcturus.appserver.system.app.type.js.script.ScriptValidator"
+          lazy-init="true"/>
+    <bean id="scriptEnhancer"
+          class="com.arcturus.appserver.system.app.type.js.script.ScriptEnhancer" lazy-init="true"/>
+    <bean id="stringToUuidHasher" class="com.arcturus.appserver.crypt.ArcturusStringToUuidHasher"
+          lazy-init="true"/>
+    <bean id="arcturusExecutor" class="com.arcturus.appserver.concurrent.ArcturusExecutor"
+          lazy-init="true" destroy-method="shutdown"/>
+    <bean id="arcturusScheduledExecutor"
+          class="com.arcturus.appserver.concurrent.ArcturusScheduledExecutor"
+          lazy-init="true" destroy-method="shutdown"/>
+    <bean id="arcturusContextExecutor"
+          class="com.arcturus.appserver.concurrent.ArcturusContextExecutor"
+          lazy-init="true"/>
+    <bean id="classToStringHasher"
+          class="com.arcturus.appserver.system.ArcturusClassToStringHasher"
+          lazy-init="true"/>
+    <bean id="tokenLoginHandler"
+          class="com.arcturus.appserver.system.account.login.TokenLoginHandler"
+          lazy-init="true"/>
+    <bean id="reconnectStatefulSessionHandler"
+          class="com.arcturus.appserver.system.account.login.ReconnectStatefulSessionHandler"
+          lazy-init="true"/>
+    <bean id="awsCloudwatchLogsTransmitterProvider"
+          class="com.arcturus.appserver.log.awscloudwatch.AwsCloudwatchLogsTransmitterProvider"
+          lazy-init="true" destroy-method="shutdown"/>
+    <bean id="emailSender" class="com.arcturus.appserver.email.EmailSender"
+          lazy-init="true" destroy-method="shutdown"/>
+    <bean id="passwordGenerator"
+          class="com.arcturus.appserver.system.account.password.PasswordGenerator"
+          lazy-init="true"/>
+    <bean id="passwordValidator"
+          class="com.arcturus.appserver.system.account.password.PasswordValidator"
+          lazy-init="true"/>
+</beans>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="appConfig" factory-bean="javaAppSingletons" factory-method="getAppConfig"
+          lazy-init="true"/>
+    <bean id="javaUserSender" class="com.arcturus.appserver.system.app.type.java.JavaUserSender"
+          lazy-init="true"/>
+    <bean id="javaResponseSender"
+          class="com.arcturus.appserver.system.app.type.java.JavaResponseSender" lazy-init="true"/>
+    <bean id="javaEntityServiceProvider"
+          class="com.arcturus.appserver.system.app.type.java.JavaEntityServiceProvider"
+          lazy-init="true"/>
+    <bean id="userSessionHandlerFactory"
+          class="com.arcturus.appserver.system.app.type.java.JavaUserSessionHandlerFactory"
+          lazy-init="true"/>
+    <bean id="serviceClusterConfigProvider"
+          class="com.arcturus.appserver.system.app.type.java.JavaServiceClusterConfigProvider"
+          lazy-init="true"/>
+    <bean id="appClasses" class="com.arcturus.appserver.system.app.type.java.AppClasses"
+          lazy-init="true"/>
+    <bean id="localEntityServiceFactory"
+          class="com.arcturus.appserver.system.app.type.java.JavaLocalEntityServiceFactory"
+          lazy-init="true"/>
+    <bean id="useCaseProvider"
+          class="com.arcturus.appserver.system.app.type.java.JavaUseCaseProvider"
+          lazy-init="true"/>
+    <bean id="javaTransactionManager"
+          class="com.arcturus.appserver.system.app.type.java.JavaTransactionManager"
+          lazy-init="true"/>
+    <bean id="javaServiceInfos" class="com.arcturus.appserver.system.app.type.java.JavaServiceInfos"
+          lazy-init="true"/>
+    <bean id="customLateBinder"
+          class="com.arcturus.appserver.system.app.type.java.JavaCustomLateBinder"
+          lazy-init="true"/>
+</beans>

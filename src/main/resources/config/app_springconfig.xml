@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="appInjector" class="com.arcturus.appserver.inject.spring.SpringInjector"
+          lazy-init="true"/>
+    <bean id="app" class="com.arcturus.appserver.system.app.App"
+          lazy-init="true"/>
+    <bean id="appId" factory-bean="appSingletons" factory-method="getAppId" lazy-init="true">
+        <qualifier type="AppId"/>
+    </bean>
+    <bean id="userEntityServiceProvider"
+          class="com.arcturus.appserver.system.app.service.UserEntityServiceProvider"
+          lazy-init="true" destroy-method="shutdown"/>
+    <bean id="listServiceProvider"
+          class="com.arcturus.appserver.system.app.service.entity.list.ArcturusListServiceProvider"
+          lazy-init="true" destroy-method="shutdown"/>
+    <bean id="lateBinder" class="com.arcturus.appserver.system.app.LateBinder" lazy-init="false"
+          init-method="lateBind"/>
+    <bean id="entityServiceProvider"
+          class="com.arcturus.appserver.system.app.service.EntityServiceProvider"
+          lazy-init="true"/>
+    <bean id="transactionManager"
+          class="com.arcturus.appserver.system.app.service.entity.transaction.ArcturusTransactionManager"
+          lazy-init="true"/>
+    <bean id="entityServiceFactory"
+          class="com.arcturus.appserver.system.app.service.entity.EntityServiceFactory"
+          lazy-init="true"/>
+    <bean id="swaggerInfo" class="com.arcturus.appserver.system.app.rest.SwaggerInfo"
+          lazy-init="true"/>
+    <bean id="privateUseCases"
+          class="com.arcturus.appserver.system.app.PrivateUseCases" lazy-init="true"/>
+    <bean id="appLogger"
+          class="com.arcturus.appserver.system.app.logmessage.ArcturusAppLogger"
+          lazy-init="true"/>
+    <bean id="listChunkEntityServiceFactory"
+          class="com.arcturus.appserver.system.app.service.entity.list.ListChunkEntityServiceFactory"
+          lazy-init="true"/>
+    <bean id="appLoggerEntityService"
+          class="com.arcturus.appserver.system.app.logmessage.AppLoggerEntityService"
+          lazy-init="true" destroy-method="shutdown"/>
+    <bean id="useCaseProcessor"
+          class="com.arcturus.appserver.system.app.service.UseCaseProcessor"
+          lazy-init="true"/>
+    <bean id="aggregationEntityServiceProvider"
+          class="com.arcturus.appserver.system.app.service.entity.aggregation.entityservice.AggregationEntityServiceProvider"
+          lazy-init="true" destroy-method="shutdown"/>
+    <bean id="aggregationService"
+          class="com.arcturus.appserver.system.app.service.entity.aggregation.ArcturusAggregationService"
+          lazy-init="false"/>
+    <bean id="httpClient"
+          class="com.arcturus.appserver.net.http.client.ArcturusHttpClient"
+          lazy-init="true"/>
+</beans>

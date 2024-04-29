@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="javaObjectsRegistrator"
+          class="com.arcturus.appserver.system.app.type.js.script.JavaObjectsRegistrator"
+          lazy-init="true"/>
+    <bean id="maintainerUserId" factory-bean="jsAppSingletons" factory-method="getMaintainerUserId"
+          lazy-init="true">
+        <qualifier type="MaintainerUserId"/>
+    </bean>
+    <bean id="appScriptCode" factory-bean="jsAppSingletons" factory-method="getAppScriptCode"
+          lazy-init="true">
+        <qualifier type="AppScriptCode"/>
+    </bean>
+    <bean id="jsUserSender" class="com.arcturus.appserver.system.app.type.js.JsUserSender"
+          lazy-init="true"/>
+    <bean id="jsResponseSender" class="com.arcturus.appserver.system.app.type.js.JsResponseSender"
+          lazy-init="true"/>
+    <bean id="serviceClusterConfigProvider"
+          class="com.arcturus.appserver.system.app.type.js.JsServiceClusterConfigProvider"
+          lazy-init="true"/>
+    <bean id="userSessionHandlerFactory"
+          class="com.arcturus.appserver.system.app.type.js.JsUserSessionHandlerFactory"
+          lazy-init="true"/>
+    <bean id="localEntityServiceFactory"
+          class="com.arcturus.appserver.system.app.type.js.JsLocalEntityServiceFactory"
+          lazy-init="true"/>
+    <bean id="jsTransactionManager"
+          class="com.arcturus.appserver.system.app.type.js.JsTransactionManager" lazy-init="true"/>
+    <bean id="useCaseProvider"
+          class="com.arcturus.appserver.system.app.type.js.JsUseCaseProvider"
+          lazy-init="true"/>
+    <bean id="jsServiceInfos" class="com.arcturus.appserver.system.app.type.js.JsServiceInfos"
+          lazy-init="true"/>
+    <bean id="appLogger" class="com.arcturus.appserver.system.app.type.js.JsAppLogger"
+          lazy-init="true"/>
+    <bean id="appLoggerJsWrapper"
+          class="com.arcturus.appserver.system.app.type.js.AppLoggerJsWrapper"
+          lazy-init="true"/>
+    <bean id="jsAggregationService"
+          class="com.arcturus.appserver.system.app.type.js.JsAggregationService"
+          lazy-init="true"/>
+    <bean id="jsServiceSender"
+          class="com.arcturus.appserver.system.app.type.js.JsServices"
+          lazy-init="true"/>
+    <bean id="jsListServiceProvider"
+          class="com.arcturus.appserver.system.app.type.js.JsListServices"
+          lazy-init="true"/>
+    <bean id="jsHttpClient"
+          class="com.arcturus.appserver.system.app.type.js.JsHttpClient"
+          lazy-init="true"/>
+    <bean id="domainAppScriptProvider"
+          class="com.arcturus.appserver.system.app.type.js.script.DomainAppScriptProvider"
+          lazy-init="true" destroy-method="shutdown"/>
+    <bean id="infoAppScriptFactory"
+          class="com.arcturus.appserver.system.app.type.js.script.InfoAppScriptFactory"
+          lazy-init="true"/>
+    <bean id="customLateBinder"
+          class="com.arcturus.appserver.system.app.type.js.JsCustomLateBinder"
+          lazy-init="true"/>
+    <bean id="jsFileReader"
+          class="com.arcturus.appserver.system.app.type.js.JsFileReader"
+          lazy-init="true"/>
+</beans>
